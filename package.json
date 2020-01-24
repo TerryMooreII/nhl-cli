@@ -1,6 +1,6 @@
 {
-  "name": "nhlcli",
-  "version": "1.0.0",
+  "name": "@terrymooreii/nhl",
+  "version": "1.0.1",
   "description": "View NHL scores, schedules, and standings on the command line",
   "main": "index.js",
   "scripts": {

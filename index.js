@@ -1,7 +1,11 @@
 const program = require('commander');
+const packageJSON = require('./package.json');
 const scores = require('./src/scores');
 const standings = require('./src/standings');
 const favorites = require('./src/favorites');
+
+program
+  .version(packageJSON.version);
 
 program
   .command('scores [option]')
@@ -35,3 +39,7 @@ program
   });
 
 program.parse(process.argv);
+
+if (process.argv.length === 2) {
+  scores.get();
+}
