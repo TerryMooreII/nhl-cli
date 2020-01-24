@@ -2,6 +2,7 @@ const program = require('commander');
 const packageJSON = require('./package.json');
 const scores = require('./src/scores');
 const standings = require('./src/standings');
+const linescore = require('./src/linescore');
 const favorites = require('./src/favorites');
 
 program
@@ -10,10 +11,12 @@ program
 program
   .command('scores [option]')
   .description('Show score and upcoming games.')
+  .option('-l, --line', 'Show as line score')
   .option('-s, --scheduled [days]', 'How many days of scheduled games to show')
   .option('-c, --completed [days]', 'How many previous days scores to show')
   .action((env, options) => {
-    scores.get(options.completed, options.scheduled);
+    if (options.line) linescore.get(options.completed, options.scheduled);
+    else scores.get(options.completed, options.scheduled);
   });
 
 program
@@ -41,5 +44,5 @@ program
 program.parse(process.argv);
 
 if (process.argv.length === 2) {
-  scores.get();
+  linescore.get();
 }

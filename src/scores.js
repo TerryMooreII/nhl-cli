@@ -51,7 +51,8 @@ const get = async (daysBack = 1, daysForward = 1) => {
   }, {});
 
   Object.keys(matches).forEach((date) => {
-    console.log(`${pad(date, 11)}${date}`);
+    const d = moment(date.date).format('dddd MMMM DD');
+    console.log(`${pad(d, d.length - 2)}${d}`);
     console.log(Array(53).fill('-').join(''));
     matches[date].forEach((game) => {
       console.log(colorize(game).join(''));
