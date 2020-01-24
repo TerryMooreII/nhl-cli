@@ -10,11 +10,51 @@ $ npm install -g nhl-cli
 
 ## Usage
 
+## Line Score
+
+```bash
+$ nhl 
+$ nhl scores -l
+
+Friday January 24
+====================================================
+1st 20:00                1st 2nd 3rd      Total  SOG
+Canadian All-Stars        0   0   0         0     0
+American All-Stars        0   0   0         0     0
+
+Saturday January 25
+====================================================
+                         1st 2nd 3rd      Total  SOG
+Team Metropolitan         0   0   0         0     0
+Team Atlantic             0   0   0         0     0
+
+                         1st 2nd 3rd      Total  SOG
+Team Pacific              0   0   0         0     0
+Team Central              0   0   0         0     0
+
+```
+
+### Options
+
+```bash
+nhl scores -h
+Usage: nhl scores [options] [option]
+
+Show score and upcoming games.
+
+Options:
+  -l, --line              Show as line score
+  -s, --scheduled [days]  How many days of scheduled games to show
+  -c, --completed [days]  How many previous days scores to show
+  -h, --help              output usage information
+```
+
+
 ## Scores
 
 ```bash
 $ nhl scores
-                     2020-01-21
+Friday January 24
 -----------------------------------------------------
 Vegas Golden Knights  2  vs  3  Boston Bruins
   New York Islanders  4  vs  2  New York Rangers
@@ -22,7 +62,7 @@ Vegas Golden Knights  2  vs  3  Boston Bruins
  Pittsburgh Penguins  0  vs  3  Philadelphia Flyers
     Florida Panthers  4  vs  3  Chicago Blackhawks
 
-                     2020-01-22
+Saturday January 25
 -----------------------------------------------------
        Winnipeg Jets  0  vs  0  Columbus Blue Jackets
    Detroit Red Wings  0  vs  0  Minnesota Wild
@@ -38,6 +78,7 @@ Usage: nhl scores [options] [option]
 Show score and upcoming games.
 
 Options:
+  -l, --line              Show as line score
   -s, --scheduled [days]  How many days of scheduled games to show
   -c, --completed [days]  How many previous days scores to show
   -h, --help              output usage information
