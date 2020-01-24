@@ -31,7 +31,6 @@ const get = async (daysBack = 1, daysForward = 1) => {
   const response = await fetch(`${url}?startDate=${startDate}&endDate=${endDate}`);
   const json = await response.json();
 
-
   const matches = json.dates.reduce((acc, date) => {
     acc[date.date] = date.games.map((game) => {
       const { away, home } = game.teams;

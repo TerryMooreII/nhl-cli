@@ -1,18 +1,21 @@
 {
-  "name": "nhl-cli",
+  "name": "@terrymooreii/nhl-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "View NHL scores, schedules, and standings on the command line",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src/ --fix"
+    "lint": "node_modules/.bin/eslint src/ --fix"
   },
   "bin": {
     "nhl": "./bin/nhl.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TerryMooreII/nhl-cli.git"
+  },
+  "keywords": ["nhl", "scores", "command line"],
+  "author": "Terry Moore <terry.moore.ii@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^4.1.0",

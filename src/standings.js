@@ -6,19 +6,6 @@ const favorites = require('./favorites');
 const favTeamIds = favorites.get();
 const WIDTH = 25;
 
-const getTeamRecords = (json) => ({
-  western: {
-    pacific: json.records[5].teamRecords,
-    central: json.records[4].teamRecords,
-    wildcard: json.records[1].teamRecords,
-  },
-  eastern: {
-    metro: json.records[2].teamRecords,
-    atlantic: json.records[3].teamRecords,
-    wildcard: json.records[0].teamRecords,
-  },
-});
-
 const isFav = (id) => (favTeamIds.includes(id) ? 'brightGreen' : 'dim');
 
 const pad = (name, extra = 0) => Array(WIDTH - name.length + extra).fill('').join(' ');
@@ -49,7 +36,18 @@ const wildcard = async () => {
   const url = 'https://statsapi.web.nhl.com/api/v1/standings/wildCardWithLeaders';
   const response = await fetch(url);
   const json = await response.json();
-  const records = getTeamRecords(json);
+  const records = {
+    western: {
+      pacific: json.records[5].teamRecords,
+      central: json.records[4].teamRecords,
+      wildcard: json.records[1].teamRecords,
+    },
+    eastern: {
+      metro: json.records[2].teamRecords,
+      atlantic: json.records[3].teamRecords,
+      wildcard: json.records[0].teamRecords,
+    },
+  };
   displayLine();
   displayConferenceTitle('Eastern');
   displayDivisionTitle('Atlantic');
