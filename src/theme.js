@@ -4,5 +4,5 @@ module.exports = {
   winner: ['white', 'bold'],
   loser: ['white', 'dim'],
   todayFavorite: ['bold'],
-  today: ['dim']
+  today: ['dim'],
 };
