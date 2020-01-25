@@ -167,3 +167,13 @@ Set your favorite NHL team(s) and they will get highlighted in the output
 ```bash
 $ nhl favorites
 ```
+
+
+
+## Contribute
+
+Something broke?  What to add something?  Open a PR!
+
+## License
+
+MIT
