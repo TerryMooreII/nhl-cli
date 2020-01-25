@@ -1,13 +1,8 @@
 const fetch = require('node-fetch');
 const moment = require('moment');
 require('colors');
-// const theme = require('./theme');
-// const favorites = require('./favorites');
-
-// const favTeamIds = favorites.get();
 
 const url = 'https://statsapi.web.nhl.com/api/v1/schedule';
-
 
 const displayLine = (len = 52) => console.log(Array(len).fill('=').join(''));
 
@@ -22,7 +17,7 @@ const displayHeader = (game) => {
   }
 
   let remaining = '';
-  if (game.status.statusCode === "1") {
+  if (game.status.statusCode === '1') {
     const startTime = moment(game.gameDate).format('h:mma');
     remaining = padHeader(`${startTime}`);
   } else if (currentPeriodTimeRemaining !== 'Final') {
