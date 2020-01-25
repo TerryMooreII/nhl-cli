@@ -22,7 +22,10 @@ const displayHeader = (game) => {
   }
 
   let remaining = '';
-  if (currentPeriodTimeRemaining !== 'Final') {
+  if (game.status.statusCode === "1") {
+    const startTime = moment(game.gameDate).format('h:mma');
+    remaining = padHeader(`${startTime}`);
+  } else if (currentPeriodTimeRemaining !== 'Final') {
     remaining = padHeader(`${currentPeriodOrdinal || ''} ${currentPeriodTimeRemaining || ''}`);
   } else {
     remaining = padHeader(`${currentPeriodTimeRemaining}${isOT ? `/${currentPeriodOrdinal}` : ''}`);
@@ -47,11 +50,11 @@ const displayTeamScore = (game) => {
   const aWin = isFinal && away.score > home.score;
   const hWin = isFinal && home.score > away.score;
   if (game.linescore.periods.length > 3) {
-    console.log(`${padHeader(game.teams.away.team.name)}  ${goals(periods, 1, 'away')}   ${goals(periods, 2, 'away')}   ${goals(periods, 3, 'away')}   ${goals(periods, currentPeriodOrdinal, 'away', shootoutInfo)}     ${away.score}     ${sog(periods, 'away')}`[aWin ? 'green' : 'white']);
-    console.log(`${padHeader(game.teams.home.team.name)}  ${goals(periods, 1, 'home')}   ${goals(periods, 2, 'home')}   ${goals(periods, 3, 'home')}   ${goals(periods, currentPeriodOrdinal, 'home', shootoutInfo)}     ${home.score}     ${sog(periods, 'home')}`[hWin ? 'green' : 'white']);
+    console.log(`${padHeader(game.teams.away.team.name)}  ${goals(periods, 1, 'away')}   ${goals(periods, 2, 'away')}   ${goals(periods, 3, 'away')}   ${goals(periods, currentPeriodOrdinal, 'away', shootoutInfo)}     ${away.score}     ${sog(periods, 'away')}`[aWin ? 'green' : 'dim']);
+    console.log(`${padHeader(game.teams.home.team.name)}  ${goals(periods, 1, 'home')}   ${goals(periods, 2, 'home')}   ${goals(periods, 3, 'home')}   ${goals(periods, currentPeriodOrdinal, 'home', shootoutInfo)}     ${home.score}     ${sog(periods, 'home')}`[hWin ? 'green' : 'dim']);
   } else {
-    console.log(`${padHeader(game.teams.away.team.name)}  ${goals(periods, 1, 'away')}   ${goals(periods, 2, 'away')}   ${goals(periods, 3, 'away')}         ${away.score}     ${sog(periods, 'away')}`[aWin ? 'green' : 'white']);
-    console.log(`${padHeader(game.teams.home.team.name)}  ${goals(periods, 1, 'home')}   ${goals(periods, 2, 'home')}   ${goals(periods, 3, 'home')}         ${home.score}     ${sog(periods, 'home')}`[hWin ? 'green' : 'white']);
+    console.log(`${padHeader(game.teams.away.team.name)}  ${goals(periods, 1, 'away')}   ${goals(periods, 2, 'away')}   ${goals(periods, 3, 'away')}         ${away.score}     ${sog(periods, 'away')}`[aWin ? 'green' : 'dim']);
+    console.log(`${padHeader(game.teams.home.team.name)}  ${goals(periods, 1, 'home')}   ${goals(periods, 2, 'home')}   ${goals(periods, 3, 'home')}         ${home.score}     ${sog(periods, 'home')}`[hWin ? 'green' : 'dim']);
   }
 };
 
@@ -68,23 +71,9 @@ const get = async (start = 1, end = 1) => {
       displayTeamScore(game);
       console.log('');
     });
-
   });
 };
 
 module.exports = {
   get,
 };
-
-
-/*
-Final                   1st 2nd 3rd      Tot
-Detroit Redwings         1   0   3        4
-Carolina Hurricanes      0   4   2        6
-
-
-Final/OT                1st 2nd 3rd OT   Tot
-Detroit Redwings         1   0   3   0    4
-Carolina Hurricanes      0   4   2   1    6
-
-*/
