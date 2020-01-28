@@ -25,7 +25,7 @@ const colorize = (game) => {
   return [colors[isFav(game.awayId, 'today')](`${pad(game.away)}${game.away}  ${game.awayScore}`), '  vs  ', colors[isFav(game.homeId, 'today')](`${game.homeScore}  ${game.home}`)];
 };
 
-const get = async (daysBack = 1, daysForward = 1) => {
+const get = async (daysBack = 1, daysForward = 0) => {
   const startDate = moment().subtract(Math.abs(daysBack), 'days').format('YYYY-MM-DD');
   const endDate = moment().add(daysForward, 'days').format('YYYY-MM-DD');
   const response = await fetch(`${url}?startDate=${startDate}&endDate=${endDate}`);
@@ -51,7 +51,7 @@ const get = async (daysBack = 1, daysForward = 1) => {
   }, {});
 
   Object.keys(matches).forEach((date) => {
-    const d = moment(date.date).format('dddd MMMM DD');
+    const d = moment(date).format('dddd MMMM DD');
     console.log(`${pad(d, d.length - 2)}${d}`);
     console.log(Array(53).fill('-').join(''));
     matches[date].forEach((game) => {

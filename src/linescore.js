@@ -17,7 +17,7 @@ const displayHeader = (game) => {
   }
 
   let remaining = '';
-  if (game.status.statusCode === '1') {
+  if (game.status.statusCode === '1' || game.status.statusCode === '2') {
     const startTime = moment(game.gameDate).format('h:mma');
     remaining = padHeader(`${startTime}`);
   } else if (currentPeriodTimeRemaining !== 'Final') {
@@ -53,7 +53,7 @@ const displayTeamScore = (game) => {
   }
 };
 
-const get = async (start = 1, end = 1) => {
+const get = async (start = 1, end = 0) => {
   const startDate = moment().subtract(Math.abs(start), 'days').format('YYYY-MM-DD');
   const endDate = moment().add(end, 'days').format('YYYY-MM-DD');
   const response = await fetch(`${url}?startDate=${startDate}&endDate=${endDate}&hydrate=linescore`);
