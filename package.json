@@ -1,13 +1,13 @@
 {
   "name": "@terrymooreii/nhl",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "View NHL scores, schedules, and standings on the command line",
   "main": "index.js",
   "scripts": {
     "lint": "node_modules/.bin/eslint src/ --fix"
   },
   "bin": {
-    "nhl": "./bin/nhl.js"
+    "nhl": "bin/nhl.js"
   },
   "repository": {
     "type": "git",
