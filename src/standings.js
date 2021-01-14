@@ -15,6 +15,11 @@ const padStat = (stat) => (stat > 9 ? stat : ` ${stat}`);
 const displayLine = (len = 45) => console.log(Array(len).fill('-').join('').brightWhite);
 
 const displayRecords = (records) => {
+  if (!records.length) {
+    console.log(' No standings information available.');
+    console.log('');
+  }
+
   records.forEach((record) => {
     const { wins, losses, ot } = record.leagueRecord;
     console.log(`${record.team.name}${pad(record.team.name)}  ${padStat(record.points)} | ${padStat(wins)} | ${padStat(losses)} | ${padStat(ot)}`[isFav(record.team.id)]);
@@ -38,14 +43,14 @@ const wildcard = async () => {
   const json = await response.json();
   const records = {
     western: {
-      pacific: json.records[5].teamRecords,
-      central: json.records[4].teamRecords,
-      wildcard: json.records[1].teamRecords,
+      pacific: json.records[5] ? json.records[5].teamRecords : [],
+      central: json.records[4] ? json.records[4].teamRecords : [],
+      wildcard: json.records[1] ? json.records[1].teamRecords : [],
     },
     eastern: {
-      metro: json.records[2].teamRecords,
-      atlantic: json.records[3].teamRecords,
-      wildcard: json.records[0].teamRecords,
+      metro: json.records[2] ? json.records[2].teamRecords : [],
+      atlantic: json.records[3] ? json.records[3].teamRecords : [],
+      wildcard: json.records[0] ? json.records[0].teamRecords : [],
     },
   };
   displayLine();
