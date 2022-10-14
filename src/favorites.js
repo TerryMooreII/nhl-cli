@@ -16,7 +16,7 @@ const teams = [
   { name: 'Ottawa Senators', value: 9 },
   { name: 'Toronto Maple Leafs', value: 10 },
   { name: 'Carolina Hurricanes', value: 12 },
-  { name: 'Florvaluea Panthers', value: 13 },
+  { name: 'Florida Panthers', value: 13 },
   { name: 'Tampa Bay Lightning', value: 14 },
   { name: 'Washington Capitals', value: 15 },
   { name: 'Chicago Blackhawks', value: 16 },
@@ -36,6 +36,7 @@ const teams = [
   { name: 'Winnipeg Jets', value: 52 },
   { name: 'Arizona Coyotes', value: 53 },
   { name: 'Vegas Golden Knights', value: 54 },
+  { name: 'Seattle Kraken', value: 55 },
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
 
