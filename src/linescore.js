@@ -6,6 +6,7 @@ const {
   displayLine,
   NHL_BASE_URL,
   DATE_FORMAT,
+  DATE_FORMAT_LONG,
 } = require('./utils');
 
 const url = `${NHL_BASE_URL}/schedule`;
@@ -64,7 +65,7 @@ const get = async (start = 1, end = 0) => {
   const response = await fetch(`${url}?startDate=${startDate}&endDate=${endDate}&hydrate=linescore`);
   const json = await response.json();
   json.dates.forEach((date) => {
-    console.log(moment(date.date).format('dddd MMMM DD').brightWhite);
+    console.log(moment(date.date).format(DATE_FORMAT_LONG).brightWhite);
     displayLine(LINE_LENGTH);
     date.games.forEach((game) => {
       displayHeader(game);

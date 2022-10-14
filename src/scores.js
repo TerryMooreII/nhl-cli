@@ -8,6 +8,7 @@ const {
   displayLine,
   NHL_BASE_URL,
   DATE_FORMAT,
+  DATE_FORMAT_LONG,
 } = require('./utils');
 
 const favTeamIds = favorites.get();
@@ -56,7 +57,7 @@ const get = async (daysBack = 1, daysForward = 0) => {
   }, {});
 
   Object.keys(matches).forEach((date) => {
-    const d = moment(date).format('dddd MMMM DD');
+    const d = moment(date).format(DATE_FORMAT_LONG);
     console.log(padStart(d, LINE_LENGTH / 2 + d.length / 2));
     displayLine(LINE_LENGTH);
     matches[date].forEach((game) => {
