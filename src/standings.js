@@ -2,17 +2,19 @@
 const fetch = require('node-fetch');
 require('colors');
 const favorites = require('./favorites');
+const {
+  padStart,
+  padEnd,
+  displayLine,
+  NHL_BASE_URL,
+} = require('./utils');
 
+const STANDINGS_URL = `${NHL_BASE_URL}/standings`;
 const favTeamIds = favorites.get();
 const WIDTH = 25;
+const LINE_LENGTH = 45;
 
 const isFav = (id) => (favTeamIds.includes(id) ? 'brightGreen' : 'dim');
-
-const pad = (name, extra = 0) => Array(WIDTH - name.length + extra).fill('').join(' ');
-
-const padStat = (stat) => (stat > 9 ? stat : ` ${stat}`);
-
-const displayLine = (len = 45) => console.log(Array(len).fill('-').join('').brightWhite);
 
 const displayRecords = (records) => {
   if (!records.length) {
@@ -22,23 +24,23 @@ const displayRecords = (records) => {
 
   records.forEach((record) => {
     const { wins, losses, ot } = record.leagueRecord;
-    console.log(`${record.team.name}${pad(record.team.name)}  ${padStat(record.points)} | ${padStat(wins)} | ${padStat(losses)} | ${padStat(ot)}`[isFav(record.team.id)]);
+    console.log(`${padEnd(record.team.name, WIDTH)}  ${padStart(record.points, 2)} | ${padStart(wins, 2)} | ${padStart(losses, 2)} | ${padStart(ot, 2)}`[isFav(record.team.id)]);
   });
-  displayLine();
+  displayLine(LINE_LENGTH);
 };
 
 const displayConferenceTitle = (title) => {
-  console.log(`${Array(20).fill('').join(' ')}${title}`.brightWhite);
-  displayLine();
+  console.log(title.padStart(26, ' ').brightWhite);
+  displayLine(LINE_LENGTH);
 };
 
 const displayDivisionTitle = (title) => {
-  console.log(`${title}${pad(title)}  PT | WN | LO | OT `.brightWhite);
-  displayLine();
+  console.log(`${padEnd(title, WIDTH)}  PT | WN | LO | OT `.brightWhite);
+  displayLine(LINE_LENGTH);
 };
 
 const wildcard = async () => {
-  const url = 'https://statsapi.web.nhl.com/api/v1/standings/wildCardWithLeaders';
+  const url = `${STANDINGS_URL}/wildCardWithLeaders`;
   const response = await fetch(url);
   const json = await response.json();
   const records = {
@@ -53,7 +55,7 @@ const wildcard = async () => {
       wildcard: json.records[0] ? json.records[0].teamRecords : [],
     },
   };
-  displayLine();
+  displayLine(LINE_LENGTH);
   displayConferenceTitle('Eastern');
   displayDivisionTitle('Atlantic');
   displayRecords(records.eastern.atlantic);
@@ -77,22 +79,21 @@ const wildcard = async () => {
 };
 
 const byConference = async () => {
-  const url = 'https://statsapi.web.nhl.com/api/v1/standings/byConference';
+  const url = `${STANDINGS_URL}/byConference`;
   const response = await fetch(url);
   const json = await response.json();
-  displayLine();
+  displayLine(LINE_LENGTH);
   json.records.forEach((record) => {
     displayDivisionTitle(record.conference.name);
-    // displayConferenceTitle(record.conference.name);
     displayRecords(record.teamRecords);
   });
 };
 
 const byDivision = async () => {
-  const url = 'https://statsapi.web.nhl.com/api/v1/standings/byDivision';
+  const url = `${STANDINGS_URL}/byDivision`;
   const response = await fetch(url);
   const json = await response.json();
-  displayLine();
+  displayLine(LINE_LENGTH);
   json.records.forEach((record) => {
     displayDivisionTitle(record.division.name);
     displayRecords(record.teamRecords);
@@ -100,10 +101,10 @@ const byDivision = async () => {
 };
 
 const byLeague = async () => {
-  const url = 'https://statsapi.web.nhl.com/api/v1/standings/byLeague';
+  const url = `${STANDINGS_URL}/byLeague`;
   const response = await fetch(url);
   const json = await response.json();
-  displayLine();
+  displayLine(LINE_LENGTH);
 
   json.records.forEach((record) => {
     displayDivisionTitle('League Standings');
