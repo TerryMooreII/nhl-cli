@@ -1,3 +1,5 @@
+# The nhl changed their apis and this no longer works.  Some day I will get around to upating it. PRs welcome :) 
+
 # nhl-cli
 
 Get the latest NHL scores and standing on your command line
